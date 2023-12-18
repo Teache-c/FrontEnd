@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- MetaPython -->
+    {% load static %}
+    <!--MetaTags-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FuenteImport -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <!--BoosTrapCss-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--HojaCss-->
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/acounts.css' %}">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Parte izquierda del container-->
+        <div class="login-left">
+            <div class="login-header">
+                <h1>Purrrrrrrr...</h1>
+                <p>Te extrañábamos, ya era hora de volver a casa :D</p>
+            </div>
+            <!--Formulario De inicio de sesión-->
+            <form class="login-form" action="{% url 'formLogin' %}" method="POST" id="formLogin" name="formLogin">
+                {% csrf_token %}
+                <!--Contenido del formulario-->
+                <div class="login-form-content">
+                    <div class="form-item">
+                        <label for="user-name">Ingresa tu NickName</label>
+                        <input type="text" id="user-name" name="username">
+                    </div>
+                    <div class="form-item">
+                        <label for="password">Tienes tus llaves por ahí?</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p class="text-muted">{{ message }}</p>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="login-btn">
+                        <button type="submit" class="longi">Iniciar Sesión</button>
+                    </div>
+                </div>
+                <div class="login-form-footer footy">
+                    <a class="colory" href="{%url 'sign_up'%}">
+                        ¿Aun no tienes una cuenta?
+                    </a>
+                    <a class="colory" href="{%url 'Cod_Correo'%}">
+                        ¿Olvidaste tus llaves?
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- Parte derecha del container-->
+        <div class="login-right">
+            <img class="img-fluid" src="{% static 'core/img/jelly-carpet-ghz-g3d88c8d23_1280.jpg' %}" alt="Just No...">
+        </div>
+    </div>
+    <footer class="py-3">
+        <div class="border-bottom pb-1 my-1 mb-3">
+        </div>
+        <p class="text-center text-muted">@TheOffice © 2023</p>
+    </footer>
+    <!--Scripts-->
+    <script src="{% static 'core/Js/user_validate.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!---------------->
+</body>
+
+</html>

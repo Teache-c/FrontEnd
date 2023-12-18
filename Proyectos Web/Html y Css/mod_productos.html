@@ -1,0 +1,126 @@
+<!-- Herencia plantilla -->
+{% extends 'core/template.html' %}
+<!-- MetaPython -->
+{% load static %}
+
+
+{%block titulo%}
+<title>📝 Modificar Producto 📝</title>
+{%endblock titulo%}
+
+
+{% block banner %}
+<div class="container-fluid mgn-top-admin">
+  <!-- admin options -->
+  <div class="row">
+    <div class="col-sm-12 col-lg-3 col-xl-3 col-xxl-3 admy shadow ">
+      <div class="img-profile my-3 centy">
+        <img class="img-fluid shadow " src="{% static 'core/img/imginicio4.jpg' %}" alt="Just No...">
+      </div>
+      <div>
+        <h5 id="user-name">{{ user.username }}</h5>
+      </div>
+      <div class="admin-options admin-menu ">
+        <ul class="navbar-nav">
+          <li class="my-3">
+            <a class="nav-link" href="{%url 'add_product'%}"><i class="bi bi-bag-plus">
+                Agregar Productos</i> </a>
+          </li>
+          <li class="my-3">
+            <a class="nav-link" href="{%url 'mod_productos'%}"><i class="bi bi-box-seam">
+                Modificar Productos</i></a>
+          </li>
+          <li class="my-3">
+            <a class="nav-link" href="{%url 'cuenta'%}"><i class="bi bi-arrow-left-circle">
+                Volver</i> </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Productos agregados -->
+    <div class="col-sm-12 col-lg-9 col-xl-9 col-xxl-9 navsty shadow">
+      <div class="row" id="modProds">
+        <!-- Columna de Productos -->
+        {% for i in productos %}
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <!-- Producto  -->
+          <div class="card my-3">
+            <div class="row px-3 pt-3 border-bottom">
+              <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11">
+                <!-- Nombre del Producto -->
+                <div class="product-name my-2">
+                  <small>Producto</small>
+                  <h6>{{ i.productName }}</h6>
+                </div>
+              </div>
+              <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                <!-- Boton Eliminar Articulo -->
+                <form action="{%url 'EliminarProducto' i.idProduct %}" method="DELETE">
+                  {% csrf_token %}
+                  <button type="submit" class="trash-design"><i class="bi bi-trash "></i></button>
+                </form>
+              </div>
+            </div>
+            <form action="{% url 'modificarProducto' i.idProduct %}" method="POST" enctype="multipart/form-data"
+              name="formulario">
+              {% csrf_token %}
+              <div class="row px-3 pb-3">
+                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                  <!-- Imagen del Producto -->
+                  <div class="img-product mt-3">
+                    <label for="imgProd">
+                      <span id="selectedFileName">Seleccionar Imagen
+                        <img class="img-fluid shadow" src="{{ i.productImg.url }}" alt="Just No...">
+                      </span>
+                    </label>
+                    <input type="file" id="imgProd" name="imgProd" style="display: none;">
+                  </div>
+                </div>
+                <!-- Valor del Producto -->
+                <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                  <div class="centy my-4 item-design">
+                    <div class="add-item my-2 centy">
+                      <label for="inputUser" class="form-label"><small>Valor Del producto</small></label>
+                      <input type="number" class="form-control text-center input-design-mod" id="imputValProd"
+                        name="imputValProd" aria-describedby="InputHelp" placeholder="${{ i.productValue }}">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                  <!-- Cantidad Del Producto -->
+                  <div class="centy my-4 item-design">
+                    <div class="add-item my-2 centy">
+                      <label for="inputUser" class="form-label"><small>Stock Disponible</small></label>
+                      <input type="number" class="form-control text-center input-design-mod" id="imputStock"
+                        name="imputStock" aria-describedby="InputHelp" placeholder="{{ i.productStock }}">
+                    </div>
+                  </div>
+                </div>
+                <!-- Valor Subtotal del Producto -->
+                <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                  <div class="centy my-4 item-design">
+                    <div class="add-item my-2 centy">
+                      <label for="inputUser" class="form-label"><small>Descuento Aplicado</small></label>
+                      <input type="number" class="form-control text-center input-design-mod" id="inputDescuent"
+                        name="inputDescuent" aria-describedby="InputHelp" placeholder="{{ i.productDiscount }}%">
+                    </div>
+                  </div>
+                  {% if error_message %}
+                    <div>
+                      <p class="text-muted">{{ error_message }}</p>
+                    </div>
+                  {% endif %}
+                  <div class="aply-btn centy">
+                    <button type="submit" class="btn btn btn-outline-secondary">Aplicar Cambios</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Final de pagina -->
+{% endblock banner %}

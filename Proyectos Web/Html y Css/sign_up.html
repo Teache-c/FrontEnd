@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- MetaPython -->
+  {% load static %}
+  <!--MetaTags-->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FuenteImport -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <!--BoosTrapCss-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <!--Jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <!--HojaCss-->
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/acounts.css' %}">
+  <title>Registro</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Parte izquierda del container-->
+    <div class="signUp-left">
+      <img class="img-fluid" src="{% static 'core/img/bichon-we-now-3202486_1280.jpg' %}" alt="Just No...">
+    </div>
+    <!-- Parte derecha del container-->
+    <div class="signUp-right">
+      <div class="signUp-header">
+        <h1>Woof Woof...</h1>
+        <p>LLena el siguiente formulario para que podamos reconocerte :D</p>
+      </div>
+      <!--Formulario De inicio de sesión-->
+      <form action="{% url 'formSignUp' %}" method="POST" class="signUp-form" id="formSignUp" name="formSignUp">
+        <!--Contenido del formulario-->
+        {% csrf_token %}
+        <div class="signUp-form-content">
+          <div class="form-item">
+            <label for="user">NickName</label>
+            <input type="text" id="user-name" name="user-name">
+          </div>
+          <div class="form-item">
+            <label for="user">Email</label>
+            <input type="email" id="email" name="email">
+          </div>
+          <div class="form-item">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password">
+          </div>
+          <div class="form-item">
+            <label for="password">Repetir Contraseña</label>
+            <input type="password" id="repeatPassword" name="repeatPassword">
+          </div>
+          <div class="form-item">
+            <label for="phone-number">Número de Teléfono</label>
+            <input type="text" id="phone-number" name="phone-number">
+          </div>
+          <div class="form-item">
+            <label for="born-date">Ingrese su fecha de nacimiento</label>
+            <input type="date" min="1930-01-01" id="born-date" name="born-date">
+          </div>
+          {% if error_message %}
+          <div>
+            <p class="text-muted">{{ error_message }}</p>
+          </div>
+          {% endif %}
+          <div class="signUp-btn">
+            <button type="submit" class="longi mb-3">Registrarse</button>
+            <p class="warning" id="warning"></p>
+          </div>
+        </div>
+        <div class="signUp-form-footer footy mb-5">
+          <a class="colory" href="{%url 'login'%}">
+            ¿Ya tienes una cuenta?
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="py-3">
+    <div class="border-bottom pb-1 my-1 mb-3">
+    </div>
+    <p class="text-center text-muted">@TheOffice © 2023</p>
+  </footer>
+
+  <!--Scripts-->
+  <script src="{% static 'core/Js/user_validate.js'%}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

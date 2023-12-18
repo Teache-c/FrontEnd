@@ -1,0 +1,106 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.users {
+  position: relative;
+  height: calc(88vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .user {
+    position: absolute;
+
+    ion-card {
+      position: relative;
+      border-radius: 16px;
+
+      ion-card-content {
+        padding: 0;
+
+        ion-img {
+          width: 90vw;
+          height: 75vh;
+          border-radius: 16px;
+          object-fit: cover;
+          object-position: top;
+          mask: linear-gradient(to bottom, black, black, transparent);
+        }
+
+        ion-item {
+          --padding-start: 0px;
+          position: absolute;
+          left: 0;
+          bottom: 5%;
+          width: 100%;
+          text-align: center;
+          --background: transparent;
+
+          ion-label {
+            h2 {
+              font-size: x-large;
+              color: #000000;
+            }
+
+            p {
+              font-size: large;
+              color: #000000;
+            }
+          }
+        }
+      }
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      opacity: 0;
+      font-size: 100px;
+    }
+  }
+}
+
+
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  ion-icon {
+    font-size: 45px;
+  }
+}
+
+
+.cent{
+  text-align: center;
+}
+
+.centB{
+  width: 99%;
+}
+.next {
+  position: fixed;
+  left: 20px;
+  bottom: 10px !important;
+  color: red;
+}
+
+.pass {
+  position: fixed;
+  right: 20px !important;
+  bottom: 10px !important;
+  color: red;
+}
+
+.icony {
+  font-size: 90px !important;
+}

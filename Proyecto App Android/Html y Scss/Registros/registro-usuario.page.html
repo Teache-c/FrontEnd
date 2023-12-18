@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-img class="pata" src="assets/icon/pata.png" alt="JustNo"></ion-img></ion-col>
+        <ion-col><ion-img class="registro" src="assets/icon/registro.png" alt="JustNo"></ion-img></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <form [formGroup]="profileForm" (ngSubmit)="enviar()">
+      <ion-row class="main-row">
+        <ion-col size="12" class="img-select">
+          <label for="file-input" (click)="takePicture()">
+            <ion-icon class="img" name="image-outline"></ion-icon>
+            <h1>Seleccione una imagen</h1>
+            <ion-text color="danger">(Este campo es requerido)</ion-text>
+          </label>
+          <input formControlName="imagen" id="file-input"/>
+          <ion-img class="image" [src]="profileForm.value.imagen"
+            *ngIf="profileForm.value.imagen"></ion-img> 
+        </ion-col>
+        <span *ngIf="profileForm.controls.imagen.invalid && profileForm.controls.imagen.touched">
+          {{ getImagenMessage() }}
+        </span>        
+        <ion-col size="12" class="box">
+          <ion-input formControlName="nombre" class="campo" label-placement="floating" label="Nombre"
+            placeholder="Nombre"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.nombre.invalid && profileForm.controls.nombre.touched">
+          {{ getNombreMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="apellido" class="campo" label-placement="floating" label="Apellido"
+            placeholder="Apellido"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.apellido.invalid && profileForm.controls.apellido.touched">
+          {{ getApellidoMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="edad" class="campo" label-placement="floating" label="Ingrese su fecha de nacimiento" type="date"
+            placeholder="12/12/1999"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.edad.invalid && profileForm.controls.edad.touched">
+          {{ getEdadMessage() }}
+        </span>
+        <ion-col class="box">
+          <ion-select formControlName="rol" class="campo">
+            <div slot="label">Seleccione su interés</div>
+            <ion-select-option *ngFor="let rol of arregloRol"
+              [value]="rol.id_rol">{{rol.nombre_rol}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.rol.invalid && profileForm.controls.rol.touched" class="validateMsg">
+          {{ getRolMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-textarea formControlName="descripcion" class="campo" labelPlacement="stacked"
+            label="Descripción" placeholder="Ingrese una descripción sobre ti"></ion-textarea>
+        </ion-col>
+        <ion-col>
+          <span *ngIf="profileForm.controls.descripcion.invalid && profileForm.controls.descripcion.touched">
+            {{ getDescripcionMessage() }}
+          </span>
+        </ion-col>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="contrasenia" class="campo" label-placement="floating"
+            label="Ingrese su contraseña" type="password"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.contrasenia.invalid && profileForm.controls.contrasenia.touched">
+          {{ getContraseniaMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="repetirContrasenia" class="campo" label-placement="floating"
+            label="Repita su contraseña" type="password"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span
+        *ngIf=" getRepetirContraseniaMessage() && profileForm.controls.repetirContrasenia.touched && profileForm.get('repetirContrasenia')?.hasError('noCoincide')">
+        {{ getRepetirContraseniaMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-select formControlName="pregunta" class="campo" label="Pregunta de seguridad" label-placement="floating">
+            <ion-select-option value="¿Cuando es tu cumpleaños?">¿Cuando es tu cumpleaños?</ion-select-option>
+            <ion-select-option value="¿A que colegio fuiste?">¿A que colegio fuiste?</ion-select-option>
+            <ion-select-option value="¿Como se llama tu madre?">¿Como se llama tu madre?</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span
+        *ngIf="profileForm.controls.pregunta.invalid && profileForm.controls.pregunta.touched">
+        {{ getPreguntaMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="respuesta" class="campo" label-placement="floating" label="Respuesta de la pregunta de seguridad"
+            placeholder="Ingrese su espuesta"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span
+        *ngIf="profileForm.controls.respuesta.invalid && profileForm.controls.respuesta.touched">
+        {{ getRespuestaMessage() }}
+        </span>
+        <ion-button (click)="enviar()" [disabled]="!profileForm.valid" fill="outline" shape="round"
+          color="primary">Siguiente</ion-button>
+        <ion-col>
+          <ion-noe [routerLink]="['/home']">¿Ya tienes una cuenta? Presiona aquí...</ion-noe>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

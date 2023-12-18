@@ -1,0 +1,62 @@
+<!-- Herencia plantilla -->
+{% extends 'core/template.html' %}
+<!-- MetaPython -->
+{% load static %}
+
+{%block titulo%}
+<title>👨‍💻 Perfil 👨‍💻</title>
+{%endblock titulo%}
+
+
+
+{% block banner %}
+
+<div class="container-xl mgn-top-user my-5">
+    <div class="row content-design" id="user_Profile">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6">
+            <img class="img-fluid shadow" src= "{{ usuario.userImg.url }}"alt="Just No...">
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6 my-1">
+            <div class="user-info">
+                <small>Nickname</small>
+                <h4>{{ usuario.nickName }}</h4>
+            </div>
+            <div class="user-info">
+                <small>Correo</small>
+                <h4>{{ usuario.userEmail }}</h4>
+            </div>
+            <div class="user-info">
+                <small>Dirección</small>
+                {% if region.regionName == NULL and direccion.idCounty.countyName == NULL and direccion.streetAdress == NULL and direccion.streetNumber == NULL %}
+                <h4>Región, Comuna, Calle #6969</h4>
+                {% else %}
+                <h4>{{ region.regionName }}, {{ direccion.idCounty.countyName }}, {{ direccion.streetAdress}} #{{ direccion.streetNumber }}</h4>
+                {% endif %}
+            </div>
+            <div class="user-info">
+                <small>Numero de telefono</small>
+                <h4>{{ usuario.userPhone }}</h4>
+            </div>
+            <div class="user-info">
+                <small>Fecha de Nacimiento</small>
+                <h4>{{ usuario.bornDate }}</h4>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-2">
+                <a href="{%url 'mod_cuenta'%}">
+                    <button type="button" class="btn btn-outline-dark">Modificar Perfil</button></a>
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto mt-1 mb-2">
+                <a href="{%url 'agregarDireccion'%}" target="_blank">
+                    <button type="button" class="btn btn-outline-dark ">Modificar Direccion</button></a>
+            </div>
+            {% if user.is_staff %}
+            <div class="d-grid gap-2 col-6 mx-auto mt-2">
+                <a href="{%url 'add_product'%}">
+                    <button type="button" class="btn btn-outline-dark">Administrar Negocio</button></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock banner %}

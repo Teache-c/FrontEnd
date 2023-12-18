@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <app-toolbar></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <div class="div-supreme" *ngIf="usuarioActual">
+      <ion-row>
+        <ion-card>
+          <img class="centetete" src="{{ usuarioActual.IMG_USUARIO }}" alt="JustNo...">
+          <ion-card-header>
+            <ion-card-title class="espFonty">{{ usuarioActual.NOMBRE_USUARIO }} {{ usuarioActual.APELLIDO_USUARIO }}, {{ usuarioActual.EDAD }}
+              años</ion-card-title>
+            <ion-card-title class="justy">Sobre mí:</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{usuarioActual.DESCRIPCION}}
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="cent">🐶De la comuna🐱</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="cent">{{ usuarioActual.NOMBRE_COMUNA }}</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" *ngIf="rol_id === '2'">
+          <ion-button expand="block" color="dark" [routerLink]="['/perfil-mascota']">Ver Mascota en adopcion</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button color="light" expand="block" [routerLink]="['/editar-usuario']">Editar Perfil</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button color="light" expand="block" (click)="navegarANuevaContrasenia()">Editar Contraseña</ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button expand="block" color="dark" (click)="cerrar()">Cerrar Sesion</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
+<div class="tabMenu">
+  <app-navsty></app-navsty>
+</div>

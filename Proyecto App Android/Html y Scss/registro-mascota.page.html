@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <app-toolbar></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <form [formGroup]="formMascota" (ngSubmit)="enviar()">
+      <ion-row class="main-row">
+        <ion-col size="12" class="img-select">
+          <label for="file-input" class="disfras">
+            <ion-icon class="img" name="image-outline"></ion-icon>
+            <h1>Seleccione una imagen</h1>
+            <ion-text color="danger">(Este campo es requerido)</ion-text>
+          </label>
+          <input (click)="takePicture()" formControlName="img"  id="file-input"/>
+          <ion-img class="image" [src]="formMascota.value.img"
+            *ngIf="formMascota.value.img"></ion-img>
+        </ion-col>
+        <span *ngIf="formMascota.controls.img.invalid && formMascota.controls.img.touched">
+          {{ getImagenMessage() }}
+        </span> 
+        <ion-col size="12" class="box">
+          <ion-input formControlName="nombreMascota" class="campo" labelPlacement="stacked" label="Nombre mascota"
+            placeholder="Ingrese el nombre de la Mascota"></ion-input>
+        </ion-col>
+        <ion-col size="12">
+          <span *ngIf="formMascota.controls.nombreMascota.invalid && formMascota.controls.nombreMascota.touched">
+            {{ getNombreMascotaMessage() }}
+          </span>
+        </ion-col>
+        <ion-col size="6" class="box">
+          <ion-input formControlName="edad" class="campo" labelPlacement="stacked" label="Edad"
+            placeholder="Indique un aproximado..."></ion-input>
+        </ion-col>
+        <ion-col size="6">
+          <div class="specialBox">
+            <p>Años/Meses</p>
+          </div>
+        </ion-col>
+        <!--------------------------No Tocar------------------------>
+        <!-- <ion-col size="6" *ngIf="formControl.value.edad >= 12;">
+          <ion-card class="ageComp" formControlName="tiempo">
+            <ion-card-title>Meses o años</ion-card-title>
+            <p text-align="center">Años</p>
+          </ion-card>
+        </ion-col> -->
+        <ion-col>
+          <span *ngIf="formMascota.controls.edad.invalid && formMascota.controls.edad.touched">
+            {{ getEdadMessage() }}
+          </span>
+        </ion-col>
+        <ion-col>
+          <span *ngIf="formMascota.controls.tiempo.invalid && formMascota.controls.tiempo.touched">
+            {{ getTiempoMessage() }}
+          </span>
+        </ion-col>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="nroChip" class="campo" labelPlacement="stacked" label="Ingrese el numero de chip"
+            type="number" placeholder="Numero de chip"></ion-input>
+        </ion-col>
+        <span *ngIf="formMascota.controls.nroChip.invalid && formMascota.controls.nroChip.touched">
+          {{ getNroChipMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-textarea formControlName="tratamiento" class="campo" [autoGrow]="true" labelPlacement="stacked"
+            label="Tratamientos medicos"
+            placeholder="Detalle información sobre algún tratamiento, esterilizacion y vacunas"></ion-textarea>
+        </ion-col>
+        <span *ngIf="formMascota.controls.tratamiento.invalid && formMascota.controls.tratamiento.touched">
+          {{ getTratamientoMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-textarea formControlName="descripcion" class="campo" [autoGrow]="true" labelPlacement="stacked"
+            label="Descripción" placeholder="Ingrese una descripción sobre la mascota"></ion-textarea>
+        </ion-col>
+        <span *ngIf="formMascota.controls.descripcion.invalid && formMascota.controls.descripcion.touched">
+          {{ getDescripcionMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-select label="Especie" class="campo" formControlName="especie"
+            placeholder="¿A que especie pertenece su mascota?">
+            <ion-select-option *ngFor="let especie of especies">
+              {{ especie }}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+        <span
+          *ngIf="(formMascota.controls.especie.invalid || modalCerradoSinSeleccion) && formMascota.controls.especie.touched">
+          {{ getEspecieMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-select label="Vacunas" class="campo" formControlName="vacuna" placeholder="¿Su mascota esta vacunada?">
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+            <ion-select-option value="No sé">No sé</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <!-- mensaje de error -->
+        <span *ngIf="formMascota.controls.vacuna.invalid && formMascota.controls.vacuna.touched">
+          {{ getVacunaMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-select label="Tamaño" class="campo" formControlName="tamanio" placeholder="¿De que tamaño es su mascota?">
+            <ion-select-option value="grande">Grande</ion-select-option>
+            <ion-select-option value="mediano">Mediano/a</ion-select-option>
+            <ion-select-option value="pequenio">Pequeño/a</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <!-- mensaje de error -->
+        <span *ngIf="formMascota.controls.tamanio.invalid && formMascota.controls.tamanio.touched">
+          {{ getTamanioMessage() }}
+        </span>
+        <ion-button (click)="enviar()" fill="outline" shape="round"
+          color="danger">Registrar</ion-button>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

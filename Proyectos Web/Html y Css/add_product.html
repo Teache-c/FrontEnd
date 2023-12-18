@@ -1,0 +1,110 @@
+<!-- Herencia plantilla -->
+{% extends 'core/template.html' %}
+<!-- MetaPython -->
+{% load static %}
+
+{%block titulo%}
+<title>📝 Agregar producto 📝 </title>
+{%endblock titulo%}
+
+{% block banner %}
+  <div class="container-fluid mgn-top-admin ">
+    <form action="{% url 'formAgreProd' %}" method="POST" enctype="multipart/form-data" id="formAgreProd"
+      name="formAgreProd">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-6 col-lg-3 col-xl-3 col-xxl-3 admy shadow">
+          <div class="img-profile my-3" id="profile-image">
+            <img class=" img-fluid shadow " src="{{ usuario.userImg.url }}" alt="Just No...">
+          </div>
+          <div>
+            <h5 id="user-name">{{ user.username }}</h5>
+          </div>
+          <div class="admin-options">
+            <ul class="navbar-nav">
+              <li class="my-3">
+                <a class="nav-link" href="{% url 'add_product'%}"><i class="bi bi-bag-plus"> Agregar
+                    Productos</i> </a>
+              </li>
+              <li class="my-3">
+                <a class="nav-link" href="{% url 'mod_productos'%}"><i class="bi bi-box-seam"> Modificar
+                    Productos</i></a>
+              </li>
+              <li class="my-3">
+                <a class="nav-link" href="{% url 'cuenta'%}"><i class="bi bi-arrow-left-circle">
+                    Volver</i> </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 col-xl-3 col-xxl-3 navsty shadow">
+          <div class="item-img centy my-5 ">
+            <label for="imgProd">
+              <span id="selectedFileName">Seleccionar Imagen
+                <i class="bi bi-file-earmark-image"></i>
+              </span>
+            </label>
+            <input type="file" id="imgProd" name="imgProd" style="display: none;">
+          </div>
+          <div class="add-item my-3 centy">
+            <label for="nomProd" class="form-label"><small>Nombre Del producto</small></label>
+            <input type="text" class="form-control text-center input-design" id="nomProd" name="nomProd"
+              aria-describedby="InputHelp">
+          </div>
+          <div class="add-item my-3 centy">
+            <label for="valProd" class="form-label"><small>Valor Del producto</small></label>
+            <input type="number" min="0" class="form-control input-design text-center" id="valProd" name="valProd"
+              aria-describedby="InputHelp" placeholder="$000.000">
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-xl-6 col-xxl-6 navsty">
+          <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
+          <div class="add-item my-3 centy">
+            <div class="my-4 text-center">
+              <label for="desProd" class="form-label">
+                <span>Breve descripcion del producto</span>
+              </label>
+              <textarea class="form-control" id="desProd" name="desProd" cols="30" rows="7"></textarea>
+            </div>
+          </div>
+          <div class="category-product centy">
+            <div class="check-category">
+              <h6 class="text-center">Categoría</h6>
+              <div class="my-3">
+                <select class="form-control" name="category" id="category">
+                  {% for x in categories %}
+                  <option value="{{ x.idCategory }}">{{ x.categoryName }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="add-item centy">
+            <div class="add-item mb-4 centy">
+              <label for="stockProduct" class="form-label"><small>
+                  Stock</small></label>
+              <input type="number" min="0" class="form-control input-design text-center" id="stockProduct"
+                name="stockProduct" aria-describedby="InputHelp" placeholder="0">
+            </div>
+          </div>
+          <div class="add-item centy">
+            <div class="add-item mb-4 centy">
+              <label for="discProduct" class="form-label"><small>
+                  Descuento</small></label>
+              <input type="number" min="0" class="form-control input-design text-center" id="discProduct"
+                name="discProduct" aria-describedby="InputHelp" placeholder="0">
+            </div>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto centy">
+            <button type="submit" class="btn btn-outline-dark">Agregar Producto</button>
+          </div>
+          <p class="warning centy my-3" id="warning"></p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Final de pagina -->
+  <!--BootStrap Js-->
+  <script src="{% static 'core/Js/admin_validate.js' %}"></script>
+  <!---------------->
+{% endblock banner %}

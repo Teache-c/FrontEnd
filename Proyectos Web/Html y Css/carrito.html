@@ -1,0 +1,122 @@
+<!-- Herencia plantilla -->
+{% extends 'core/template.html' %}
+<!-- MetaPython -->
+{% load static %}
+
+
+{%block titulo%}
+<title>👜 Su carrito 👜</title>
+{%endblock titulo%}
+
+{% block banner %}
+<div class="container-fluid cart-back">
+    <!-- Encabezado de la pagina -->
+    <div class="row sticky-top mgn-top-cart">
+        <div class="cart-title fixed-top">
+            <h2 class="namy px-3">Su Carrito</h2>
+            <a href="{%url 'productos'%}"><button class="btn active text-muted btns-style"><i
+                        class="bi bi-arrow-return-left"></i>
+                    Continuar comprando</button></a>
+        </div>
+    </div>
+</div>
+
+<div class="row mgn-top-cart-items row-design">
+    <!-- Columna de Productos -->
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8" id="cartItems">
+        <!-- Producto -->
+        {% if request.session.cart.items %}
+        {% for key, value in request.session.cart.items %}
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 p-2 mrgn-cart">
+            <div class="card card-design my-3 shadow" id="item">
+                <div class="row px-2 pt-1">
+                    <div class="col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11">
+                        <!-- Nombre del Producto -->
+                        <div class="product-name my-2 border-bottom">
+                            <small>Producto</small>
+                            <h6>{{ value.product_name }}</h6>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 p-3">
+                        <!-- Boton Eliminar Articulo -->
+                        <a href="{% url 'Del' value.product_id %}" class="trash-design text-muted" id="trash-btn"><i
+                                class="bi bi-trash "></i></a>
+                    </div>
+                </div>
+                <div class="row px-1 pb-1 my-2">
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                        <!-- Imagen del Producto -->
+                        <div class="img-product">
+                            <img class="img-fluid shadow" src="{{ value.product_Img }}" alt="Just No...">
+                        </div>
+                    </div>
+                    <!-- Valor del Producto -->
+                    <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                        {% if value.product_Discount == 0 %}
+                        <div class="centy item-design">
+                            <small>Valor</small>
+                            <p class="namy my-3">${{ value.product_Value }} </p>
+                        </div>
+                        {% else %}
+                        <div class="centy item-design">
+                            <small>Valor</small>
+                            <small class="mt-1">{{ value.product_Discount }}%Off </small>
+                            <del class="namy mb-3">${{ value.product_Value }}</del>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <!-- Cantidad Del Producto -->
+                    <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                        <div class="centy item-design">
+                            <small>Cantidad</small>
+                            <div class="my-3">
+                                <a class="btn-count text-muted" href="{% url 'Sub' value.product_id %}"><i
+                                        class="bi bi-dash-square mx-2"></i></a>{{ value.product_Count }}<a
+                                    href="{% url 'Add' value.product_id %}" class="btn-count text-muted"><i
+                                        class="bi bi-plus-square mx-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Valor Subtotal del Producto -->
+                    <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-5">
+                        <div class="centy item-design">
+                            <small>Subtotal</small>
+                            <p class="namy my-3">${{ value.product_Sub}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="card card-design p-5 my-4">
+            <h1>No Hay productos... D:</h1>
+        </div>
+
+        {%endif%}
+        <!-------------->
+        <!--Boton Vaciar Carrito -->
+    </div>
+    <!-- Columna de Descuento y Pago -->
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mgn-top-cart-buy">
+        <div class="card card-design my-3 code-cart-design centy shadow">
+            <div class="row my-3">
+                <!-- Valor Total -->
+                <div class="total-value centy">
+                    <h5>Total: ${{total_carrito}}</h5>
+                </div>
+                <div class="centy my-4">
+                    <a href="{% url 'Clean' %}" type="button" class="btn btn-outline-dark">Vaciar Carrito</a>
+                </div>
+            </div>
+        </div>
+        <!-- Boton Realizar compra -->
+        
+        <div class="buy-btn shadow my-3">
+            <a href="{% url 'Compra' %}" type="submit" class="btns-style text-muted"> Realizar Compra </a>
+        </div>
+    </div>
+</div>
+
+<!---------------->
+{% endblock banner %}

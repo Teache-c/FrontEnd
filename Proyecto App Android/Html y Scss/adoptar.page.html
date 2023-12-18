@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <app-toolbar></app-toolbar>
+</ion-header>
+<ion-content>
+  <div class="users" *ngIf="rol_id === '1' && arregloMascotas.length > 0; else emptyTemplate">
+    <div class="user" *ngFor="let mascota of arregloMascotas; let i = index;"
+      [style.zIndex]="arregloMascotas.length - i" (touchstart)="touchStart($event)" (touchmove)="touchMove($event, i)"
+      (touchend)="touchEnd(i, mascota.id_usuario)" id="{{'card-' + i}}">
+      <ion-card mode="ios">
+        <ion-card-content mode="md">
+          <ion-img [src]="mascota.mascota_img" alt="JustNo"></ion-img>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>{{mascota.nombre_mascota}}</h2>
+              <p>{{mascota.edad_mascota}} años/meses</p>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+      <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
+      <ion-icon name="heart" class="icon" color="danger" id="accept-icon"></ion-icon>
+    </div>
+  </div>
+  <div class="users" *ngIf="rol_id === '2' && arregloUsuarios.length > 0; else emptyTemplate">
+    <div class="user" *ngFor="let user of arregloUsuarios; let i = index;" [style.zIndex]="arregloUsuarios.length - i"
+      (touchstart)="touchStart($event)" (touchmove)="touchMove($event, i)" (touchend)="touchEnd(i, user.id_usuario)"
+      id="{{'card-' + i}}">
+      <ion-card mode="ios">
+        <ion-card-content mode="md">
+          <ion-img [src]="user.img_usuario" alt="JustNo"></ion-img>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>{{user.nombre_usuario}} {{user.apellido_usuario}}</h2>
+              <p>{{user.edad}} años</p>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+      <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
+      <ion-icon name="heart" class="icon" color="danger" id="accept-icon"></ion-icon>
+    </div>
+  </div>
+  <ng-template #emptyTemplate>
+    <div class="center">
+      <ion-icon name="checkmark-circle"></ion-icon>
+      <br>
+      <ion-note>Ya alcanzaste tu limite diario, regresa mañana...</ion-note>
+    </div>
+  </ng-template>
+</ion-content>
+<div class="tabMenu" slot="bottom">
+  <app-navsty></app-navsty>
+</div>
+
+  <ion-modal
+    trigger="open-modal"
+    [initialBreakpoint]="0.45"
+    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    handleBehavior="cycle"
+    [isOpen]="isModalOpen"
+    (didDismiss)="goTo('chat')"
+  >
+    <ng-template>
+      <ion-card>
+        <img alt="SIN FOTO" src="assets/img/FELICIDADES.png" />
+        <ion-card-header>
+          <ion-card-subtitle class="cent">Has coincidido con alguien, ¡Escrible primero, Conózcanse y decidan que hacer!</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ng-template>
+  </ion-modal>
+
+<!-- DON´T TOUCH -->
+<!-- <div class="icony">
+  <ion-buttons>
+    <ion-button shape="round" class="pass">
+      <ion-icon class="icony" name="heart-circle-outline"></ion-icon>
+    </ion-button>
+    
+    <ion-button shape="round"class="next">
+      <ion-icon class="icony" name="heart-dislike-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</div> -->

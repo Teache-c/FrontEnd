@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-img class="pata" src="assets/icon/pata.png" alt="JustNo"></ion-img></ion-col>
+        <ion-col><ion-img class="registro" src="assets/icon/registro.png" alt="JustNo"></ion-img></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <form [formGroup]="profileForm" (ngSubmit)="enviar()">
+      <ion-row class="main-row">
+        <ion-col size="12" class="box">
+          <ion-input formControlName="email" class="campo" label-placement="floating" label="Ingrese su email"
+            type="email" placeholder="email@example.com"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.email.invalid && profileForm.controls.email.touched" class="error-message">
+          {{ getCorreoMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="telefono" class="campo" label-placement="floating"
+            label="Ingrese su numero de telefono" type="text" placeholder="+56912341234"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.telefono.invalid && profileForm.controls.telefono.touched">
+          {{ getTelefonoMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="nombreCalle" class="campo" label-placement="floating" label="Nombre de la calle"
+            type="text" placeholder="Nombre de la calle"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.nombreCalle.invalid && profileForm.controls.nombreCalle.touched" class="error-message">
+          {{ getNombreCalleMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-input formControlName="numeroCalle" class="campo" label-placement="floating" label="Número de la calle"
+            type="number" maxlength="3" placeholder="Número de la calle"></ion-input>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span *ngIf="profileForm.controls.numeroCalle.invalid && profileForm.controls.numeroCalle.touched" class="error-message">
+          {{ getNumeroCalleMessage() }}
+        </span>
+        <ion-col class="box">
+          <ion-select formControlName="region" placeholder="Region" class="campo">
+            <div slot="label">Seleccione su Región</div>
+            <ion-select-option *ngFor="let r of arregloRegion"
+              [value]="r.id_region">{{r.nombre_region}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <!-- mensaje de validador -->
+        <span
+        *ngIf="profileForm.controls.region.invalid && profileForm.controls.region.touched">
+        {{ getRegionMessage() }}
+        </span>
+        <ion-col size="12" class="box">
+          <ion-select formControlName="comuna" placeholder="Comuna" class="campo">
+            <div slot="label">Escoja su comuna</div>
+            <ion-select-option *ngFor="let c of arregloComuna" [value]="c.id_comuna"
+              class="option">{{c.nombre_comuna}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <span *ngIf="profileForm.controls.comuna.invalid && profileForm.controls.comuna.touched">
+          {{ getComunaMessage() }}
+        </span>
+        <!-- Redirección -->
+        <ion-button (click)="enviar()" [disabled]="!profileForm.valid" fill="outline"  shape="round"
+          color="primary">Siguiente</ion-button>
+        <ion-col>
+          <ion-noe [routerLink]="['/home']">¿Ya tienes una cuenta? Presiona aquí...</ion-noe>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+  <ion-alert
+  [isOpen]="isAlertOpen"
+  header="¡Registro Exitoso!"
+  subHeader="Ya puedes iniciar sesión"
+  message="No olvides tu Email y tu contraseña 👀"
+  [buttons]="alertButtons"
+  (didDismiss)="setOpen(false)"
+></ion-alert>
+</ion-content>

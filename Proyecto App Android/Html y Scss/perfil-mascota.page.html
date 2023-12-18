@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <app-toolbar></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Mascota -->
+  <ion-grid>
+    <div class="div-supreme" *ngIf="mascotaActual">
+      <ion-row>
+        <ion-col>
+          <ion-card>
+            <img class="centetete" src="{{ mascotaActual.IMG_MASCOTA }}" alt="JustNo">
+            <ion-card-header>
+              <ion-card-title class="espFonty">{{ mascotaActual.NOMBRE_MASCOTA }}, {{ mascotaActual.EDAD_MASCOTA }} años</ion-card-title>
+              <ion-card-title class="justy">Sobre mí:</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{ mascotaActual.DESCRIPCION }}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="cent">🐾Tratamientos🐾</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="justy">{{ mascotaActual.TRATAMIENTO }}</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card size="6">
+            <ion-card-header>
+              <ion-card-title class="cent">🐾Especie🐾</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="cent">{{ mascotaActual.ESPECIE }}</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="cent">🐾Tamaño🐾</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="cent">{{ mascotaActual.TAMANIO }}</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="cent">🐾N° Chip🐾</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="cent"> {{mascotaActual.NUMERO_CHIP}} </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="cent">🐾Vacunas🐾</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="cent">{{mascotaActual.VACUNA}}</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button color="light" expand="block" [routerLink]="['/modificar-mascota']">Editar Mascota</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
